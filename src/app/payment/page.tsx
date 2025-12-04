@@ -1,110 +1,72 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import FixedLayout from "@/components/FixedLayout";
 
-import { useBookingStore } from "@/store/bookingStore";
-import { logBookingStoreDetailed } from "@/store/logreport";
-import { Button } from "@/components/ui/button";
+export default function Payment() {
+    const router = useRouter();
 
-export default function PaymentPage() {
-  const router = useRouter();
+    const handleBack = () => {
+        router.push('/checkout');
+    };
 
-  const [photoCount, setPhotoCount] = useState(1);
+    const handlePromptpay = () => {
+        router.push('/promptpay');
+    };
 
-  const handleDecrease = () => {
-    setPhotoCount((prev) => Math.max(1, prev - 1));
-  };
+    return (
+        <FixedLayout>
+            <main className="relative w-full h-full bg-gradient-to-br from-blue-50 to-indigo-50 flex flex-col items-center justify-center p-16">
+                
+                {/* Back Button */}
+                <div className="absolute top-10 left-10">
+                    <Button
+                        className="bg-slate-700 text-white px-12 py-6 rounded-xl hover:bg-slate-600 text-xl font-semibold shadow-md hover:shadow-lg transition-all duration-200"
+                        onClick={handleBack}
+                    >
+                        Back
+                    </Button>
+                </div>
 
-  const handleIncrease = () => {
-    setPhotoCount((prev) => Math.min(10, prev + 1));
-  };
+                {/* Header */}
+                <div className="text-center mb-12">
+                    <h1 className="font-bold text-5xl text-slate-800">Select Payment Method</h1>
+                    <p className="mt-5 font-light text-3xl text-slate-600">เลือกวิธีการชำระเงิน</p>
+                </div>
 
-  // Get all values from booking store
-  // const selectedFrame = useBookingStore((state) => state.selectedFrame);
-  // const selectedDream = useBookingStore((state) => state.selectedDream);
-  const selectedArtist = useBookingStore((state) => state.selectedArtist);
-  const selectedDreamFrame = useBookingStore((state) => state.selectedDreamFrame);
+                {/* Primary Payment Methods */}
+                <div className="grid grid-cols-2 gap-8 mb-8">
+                    <Button 
+                        className="bg-gradient-to-br from-blue-600 to-blue-700 text-white rounded-2xl hover:from-blue-500 hover:to-blue-600 text-2xl font-semibold w-80 h-80 flex flex-col items-center justify-center gap-2 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 border-2 border-blue-400"
+                        onClick={handlePromptpay}
+                    >
+                        <span>PROMPTPAY</span>
+                        <Image src="/assets/pp-icon.png" alt="PromptPay" width={140} height={140} />
+                    </Button>
 
-  // Debug Check
-  useEffect(() => {
-    logBookingStoreDetailed("Payment Page");
-  }, []);
-  
-  return (
-    <FixedLayout>
-      <div className="grid h-full w-full grid-cols-2 bg-white">
-        {/* Left Side */}
-        <div className="relative flex flex-col items-center justify-center border-r-2 border-gray-200 bg-gray-50 p-10">
-          <h2 className="mb-6 text-2xl font-bold">Your Selection</h2>
-          <p className="mb-6 text-2xl font-semibold">Artist : {selectedArtist}</p>
+                    <Button className="bg-gradient-to-br from-indigo-600 to-indigo-700 text-white rounded-2xl hover:from-indigo-500 hover:to-indigo-600 text-2xl font-semibold w-80 h-80 flex items-center justify-center shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 border-2 border-indigo-400">
+                        Visa/MasterCard
+                    </Button>
+                </div>
 
-          {/* Show selected frame */}
-          {selectedDreamFrame ? (
-            <div className="flex max-h-full w-full items-center justify-center">
-              <div className="relative inline-block max-h-[90%] max-w-[90%] overflow-hidden rounded-lg bg-white shadow-xl">
-                <Image
-                  src={selectedDreamFrame}
-                  alt="Selected Dream Frame"
-                  width={800}
-                  height={800}
-                  className="h-auto w-auto max-h-[90vh] max-w-full object-contain"
-                />
-              </div>
-            </div>
-          ) : (
-            <div className="text-gray-400">No Image Selected</div>
-          )}
-        </div>
+                {/* Secondary Payment Methods */}
+                <div className="grid grid-cols-3 gap-6">
+                    <Button className="bg-gradient-to-br from-cyan-600 to-cyan-700 text-white rounded-2xl hover:from-cyan-500 hover:to-cyan-600 text-xl font-semibold w-64 h-64 flex items-center justify-center shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 border-2 border-cyan-400">
+                        WeChat Pay
+                    </Button>
 
-        {/* Right Side */}
-        <div className="flex flex-col items-center justify-center">
+                    <Button className="bg-gradient-to-br from-sky-600 to-sky-700 text-white rounded-2xl hover:from-sky-500 hover:to-sky-600 text-xl font-semibold w-64 h-64 flex items-center justify-center shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 border-2 border-sky-400">
+                        Alipay
+                    </Button>
 
-          <h1 className="mb-2 text-4xl font-bold">เลือกจำนวนภาพถ่าย</h1>
-          <p className="mb-2 text-4xl font-bold">Please Select your Count</p>
+                    <Button className="bg-gradient-to-br from-violet-600 to-violet-700 text-white rounded-2xl hover:from-violet-500 hover:to-violet-600 text-xl font-semibold w-64 h-64 flex items-center justify-center shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 border-2 border-violet-400">
+                        Coupon
+                    </Button>
+                </div>
 
-          {/* Counter */}
-          <div className="mt-20">
-            <div className="flex items-center gap-10">
-            <button
-              type="button"
-              onClick={handleDecrease}
-              className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-800 text-2xl font-bold text-white"
-            >
-              -
-            </button>
-
-            <div className="flex h-16 w-40 items-center justify-center rounded-2xl
-            border border-black bg-white text-2xl font-semibold text-gray-900 shadow">
-              {photoCount}
-            </div>
-
-            <button
-              type="button"
-              onClick={handleIncrease}
-              className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-800 text-2xl font-bold text-white"
-            >
-              +
-            </button>
-
-          </div>
-        </div>
-
-          <p className="mt-20 text-4xl font-bold"> มูลค่า { 100 * photoCount} บาท </p> 
-
-          {/* ใส่เนื้อหาฝั่งขวาต่อตรงนี้ */}
-          
-        <Button
-        className="mt-20 bg-green-500 text-green-800  px-15 py-15 rounded-4xl 
-         hover:bg-green-300 hover:text-white text-xl font-bold  uppercase"
-        >   
-        ชำระเงิน
-        </Button>
-
-        </div>
-      </div>
-    </FixedLayout>
-  );
+            </main>
+        </FixedLayout>
+    );
 }

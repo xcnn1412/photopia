@@ -84,7 +84,7 @@ export default function Page() {
 
       logBookingStoreDetailed("Before Back Navigation");
       // Navigate to next page
-      router.push("/payment");
+      router.push("/checkout");
     }
   };
 

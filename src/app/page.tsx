@@ -8,7 +8,7 @@ import FixedLayout from "@/components/FixedLayout";
 
 export default function Frontpage() {
   const router = useRouter();
-  const [buttonText, setButtonText] = useState("STEP IN");
+  const [buttonText, setButtonText] = useState("STEP UP");
 
   const handleClick = () => {
     setButtonText("Let's Go ...");
