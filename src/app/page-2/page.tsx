@@ -5,7 +5,8 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import FixedLayout from "@/components/FixedLayout";
 
-import { useBookingStore } from "@/store/bookingStore";
+import { useBookingStore } from "@/store/bookingStore"
+import { logBookingStoreDetailed } from "@/store/logreport";
 
 export default function Page2() {
   const router = useRouter();
@@ -63,7 +64,11 @@ export default function Page2() {
           <Button
             className="bg-white border border-black text-black px-32 py-[200px] rounded-[2rem] mt-10 
             hover:bg-black hover:text-white text-6xl font-bold"
-            onClick={() => handleSelectFrame('artistframe', '/artistframe')}
+            onClick={() => {
+              logBookingStoreDetailed("Before Back Navigation");
+              handleSelectFrame('artistframe', '/artistframe');
+              logBookingStoreDetailed("Before Back Navigation");
+            }}
           >
             ARTIST FRAME
           </Button>

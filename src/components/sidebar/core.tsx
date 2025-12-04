@@ -4,12 +4,15 @@ import Link, { LinkProps } from "next/link";
 import React, { useState, createContext, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { usePathname } from "next/navigation";
 
+// 1️⃣ เพิ่ม active?: boolean เข้าไปใน Interface
 interface Links {
   label: string;
   href?: string;
   icon: React.JSX.Element | React.ReactNode;
   onClick?: () => void;
+  active?: boolean; // ✅ เพิ่มบรรทัดนี้: เพื่อให้เราสั่งให้มัน "เลือกค้างไว้" ได้
 }
 
 interface SidebarContextProps {
@@ -88,7 +91,7 @@ export const DesktopSidebar = ({
   return (
     <motion.div
       className={cn(
-        "h-full px-4 py-4 hidden  md:flex md:flex-col bg-gray-100 dark:bg-neutral-800 w-[300px] flex-shrink-0",
+        "h-full px-4 py-4 hidden justify-center items-center md:flex md:flex-col bg-gray-100 dark:bg-neutral-800 w-[300px] flex-shrink-0",
         className
       )}
       animate={{
@@ -110,7 +113,7 @@ export const MobileSidebar = ({
   return (
     <div
       className={cn(
-        "h-10 px-4 py-4 flex flex-row md:hidden  items-center justify-between bg-neutral-100 dark:bg-neutral-800 w-full"
+        "h-10 px-4 py-4 flex flex-row md:hidden items-center justify-between bg-neutral-100 dark:bg-neutral-800 w-full"
       )}
       {...props}
     >
@@ -131,7 +134,7 @@ export const MobileSidebar = ({
               ease: "easeInOut",
             }}
             className={cn(
-              "fixed h-full w-full inset-0 bg-white dark:bg-neutral-900 p-10 z-[100] flex flex-col justify-between",
+              "fixed h-full w-full inset-0 bg-white dark:bg-neutral-900 p-10 z-[100] flex flex-col justify-center justify-between",
               className
             )}
           >
@@ -159,15 +162,26 @@ export const SidebarLink = ({
   props?: LinkProps;
 }) => {
   const { open } = useSidebar();
-  
+  const pathname = usePathname();
+
+  // เช็ค active จาก prop ที่ส่งมาก่อน ถ้าไม่มีค่อยเช็คจาก pathname
+  const isActive = link.active === true;
+
   const isButton = !link.href || link.href === "#";
   const Tag = isButton ? "div" : Link;
 
   return (
     <Tag
-      href={link.href || "#"}
+      {...(isButton ? {} : { href: link.href || "#" })}
       className={cn(
-        "flex items-center justify-start gap-2 group/sidebar py-2 cursor-pointer",
+        "flex items-center justify-start gap-4 group/sidebar py-3 px-4 w-full transition-all duration-200",
+        "rounded-xl cursor-pointer border-2",
+
+        isActive
+          ?  "text-black  border border-black shadow-md"
+          : "border-transparent text-neutral-700 hover:bg-gray-200 hover:text-black hover:border-gray-300",
+
+        "active:scale-95",
         className
       )}
       onClick={link.onClick}
@@ -180,7 +194,7 @@ export const SidebarLink = ({
           display: "inline-block",
           opacity: 1,
         }}
-        className="text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
+        className="text-xl font-semibold whitespace-pre inline-block !p-0 !m-0"
       >
         {link.label}
       </motion.span>

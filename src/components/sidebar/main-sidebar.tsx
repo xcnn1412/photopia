@@ -32,22 +32,24 @@ export function MainSidebar({ items, children, header, footer }: MainSidebarProp
     >
       {/* --- ส่วนของ Sidebar --- */}
       <Sidebar open={open} setOpen={setOpen}>
-        <SidebarBody className="justify-between gap-10">
-          <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
+        <SidebarBody>
+          <div className="flex flex-col h-full w-full items-center overflow-y-auto overflow-x-hidden">
             
             {/* Logo หรือ Header */}
             {header ? header : <DefaultLogo open={open} />}
             
-            {/* Render รายการเมนู */}
-            <div className="mt-8 flex flex-col gap-2">
-              {items.map((link, idx) => (
-                <SidebarLink key={idx} link={link} />
-              ))}
+            {/* Render รายการเมนู - ให้อยู่ตรงกลางแนวตั้ง */}
+            <div className="flex-1 flex items-center justify-center">
+              <div className="flex flex-col gap-2">
+                {items.map((link, idx) => (
+                  <SidebarLink key={idx} link={link} />
+                ))}
+              </div>
             </div>
+            
+            {/* Footer (เช่น User Profile หรือปุ่ม Back) - ชิดด้านล่าง */}
+            {footer && <div className="mt-auto w-full mb-15">{footer}</div>}
           </div>
-          
-          {/* Footer (เช่น User Profile หรือปุ่ม Back) */}
-          {footer && <div>{footer}</div>}
         </SidebarBody>
       </Sidebar>
 
@@ -64,7 +66,6 @@ export function MainSidebar({ items, children, header, footer }: MainSidebarProp
 export const DefaultLogo = ({ open }: { open: boolean }) => {
   return (
     <Link href="#" className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20">
-      <div className="h-5 w-6 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
       <motion.span
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

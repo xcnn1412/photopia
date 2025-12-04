@@ -4,7 +4,9 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import FixedLayout from "@/components/FixedLayout";
+
 import { useBookingStore } from "@/store/bookingStore";
+import { logBookingStoreDetailed } from "@/store/logreport"; //ไว้ทดสอบดูค่าใน store
 
 export default function ArtistFramePage() {
   const router = useRouter();
@@ -54,7 +56,11 @@ export default function ArtistFramePage() {
               <Button
                 className="bg-black text-white px-12 py-6 rounded-xl 
                 hover:bg-gray-800 text-xl font-semibold"
-                onClick={handleBack}
+                onClick={() => {
+                  handleBack();
+                  logBookingStoreDetailed("Back Button : artistframe");
+                  
+                }}
               >
                 Back
               </Button>
@@ -86,7 +92,10 @@ export default function ArtistFramePage() {
                 <Button
                   className="bg-white text-black border-2 border-black px-10 py-6 rounded-full 
                   hover:bg-black hover:text-white text-xl font-bold w-full uppercase"
-                  onClick={() => handleSelectDream('DOMUNDI_TV')}
+                  onClick={() => {
+                    handleSelectDream('DOMUNDI_TV');
+                    logBookingStoreDetailed("Back Button : artistframe");
+                  }}
                 >
                   DOMUNDI TV
                 </Button>
