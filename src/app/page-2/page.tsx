@@ -5,8 +5,28 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import FixedLayout from "@/components/FixedLayout";
 
+import { useBookingStore } from "@/store/bookingStore";
+
 export default function Page2() {
   const router = useRouter();
+
+  const setFrame = useBookingStore( (state) => state.setFrame );
+  const reset = useBookingStore( (state) => state.reset );
+
+  const handleBack = () =>{
+    console.log("Clearing state...");
+    reset();
+    router.push('/');
+  };
+
+  const handleSelectFrame = ( frameType : string , destinationPath: string ) => {
+    console.log("Selected Frame: ", frameType);
+
+    if ( setFrame ) {
+      setFrame( frameType);
+      router.push( destinationPath );
+    }
+  }
 
   return (
     <FixedLayout>
@@ -15,8 +35,9 @@ export default function Page2() {
         {/* Back Button */}
         <div className="absolute top-10 left-10">
           <Button
-            className="bg-black text-white px-12 py-6 rounded-xl hover:bg-gray-800 text-xl font-semibold"
-            onClick={() => router.push('/')}
+            className="bg-black text-white px-12 py-6 rounded-xl 
+            hover:bg-gray-800 text-xl font-semibold"
+            onClick={handleBack}
           >
             Back
           </Button>
@@ -36,16 +57,22 @@ export default function Page2() {
           className="logo"
         />
 
-        <div className="relative flex-row space-x-8 mt-16">
+        <div className="relative flex flex-row space-x-8 mt-16">
+
+          {/* artistframe */}
           <Button
-            className="bg-white border border-black text-black px-32 py-50 rounded-4xl mt-10 hover:bg-black hover:text-white text-6xl font-bold"
-            onClick={() => router.push('/artistframe')}
+            className="bg-white border border-black text-black px-32 py-[200px] rounded-[2rem] mt-10 
+            hover:bg-black hover:text-white text-6xl font-bold"
+            onClick={() => handleSelectFrame('artistframe', '/artistframe')}
           >
             ARTIST FRAME
           </Button>
 
+          {/* normalframe */}
           <Button
-            className="bg-white border border-black text-black px-32 py-50 rounded-4xl mt-10 hover:bg-black hover:text-white text-6xl font-bold"
+            className="bg-white border border-black text-black px-32 py-[200px] rounded-[2rem] mt-10 
+            hover:bg-black hover:text-white text-6xl font-bold"
+            onClick={() => handleSelectFrame('normalframe', '/normalframe')}
           >
             NORMAL FRAME
           </Button>
