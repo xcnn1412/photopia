@@ -6,11 +6,18 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import FixedLayout from "@/components/FixedLayout";
 
+import { useBookingStore } from "@/store/bookingStore";
+import { logBookingStore } from "@/store/logreport";  
+
 export default function Frontpage() {
   const router = useRouter();
   const [buttonText, setButtonText] = useState("STEP UP");
+  const resetBooking = useBookingStore((state) => state.reset);
 
   const handleClick = () => {
+    resetBooking(); // เคลียร์ค่าทั้งหมดใน booking store
+    //console.log("Booking store has been reset");
+    logBookingStore("Before Back Navigation");
     setButtonText("Let's Go ...");
     setTimeout(() => {
       router.push('/page-2');
