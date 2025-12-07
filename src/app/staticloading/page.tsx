@@ -26,7 +26,7 @@ export default function StaticLoadingPage() {
             >
               NEXT
             </Button>
-          </div>
+        </div>
 
         {/* Timer Display */}
         <div className="absolute top-10 right-10">
