@@ -8,7 +8,7 @@ import FixedLayout from "@/components/FixedLayout";
 
 export default function Frontpage() {
   const router = useRouter();
-  const [buttonText, setButtonText] = useState("STEP IN");
+  const [buttonText, setButtonText] = useState("STEP UP");
 
   const handleClick = () => {
     setButtonText("Let's Go ...");
@@ -27,15 +27,16 @@ export default function Frontpage() {
         </div>
 
         {/* Main Content */}
-        <div className="flex flex-col items-center space-y-16">
+        <div className="flex flex-col items-center space-y-16 ">
           {/* Logo */}
-          <Image 
-            src="/assets/Asset 1-8.png" 
-            alt="Company Logo" 
-            width={800}
-            height={800}
-            className="logo"
-          />
+          <Image
+                          src="/assets/logo-photopia-crop.png"
+                          alt="Company Logo"
+                          width={800}
+                          height={450}
+                          className="relative w-250 mt-25"
+                          style={{ height: 'auto' }} // ให้สูงเป็นสัดส่วนอัตโนมัติ
+           />
 
           {/* Tagline */}
           <p className="text-4xl text-gray-700 font-semibold tracking-wider">
@@ -46,7 +47,7 @@ export default function Frontpage() {
 
         {/* Button */}
         <Button
-          className="bg-white border border-black  text-black px-32 py-18 rounded-full mt-10 hover:bg-black hover:text-white text-6xl font-bold"
+          className="bg-white border border-black  text-black px-32 py-18 rounded-full mt-10 hover:bg-black hover:text-white text-6xl font-bold mt-25"
           onClick={handleClick}
         >
           {buttonText}
