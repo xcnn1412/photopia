@@ -50,12 +50,13 @@ export default function Page2() {
         </div>
 
         {/* Logo Display */}
-        <Image 
-          src="/assets/Asset 1-8.png" 
-          alt="Company Logo" 
+        <Image
+          src="/assets/logo-photopia-crop.png"
+          alt="Company Logo"
           width={800}
-          height={800}
-          className="logo"
+          height={450}
+          className="relative w-250 mt-25"
+          style={{ height: 'auto' }} // ให้สูงเป็นสัดส่วนอัตโนมัติ
         />
 
         <div className="relative flex flex-row space-x-8 mt-16">

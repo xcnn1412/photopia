@@ -7,6 +7,13 @@ import FixedLayout from "@/components/FixedLayout";
 import { Button } from "@/components/ui/button";
 
 export default function StaticLoadingPage() {
+
+    const router = useRouter();
+
+    const handelNext = () => {
+        router.push("/snap");
+    };
+
     return (
       <FixedLayout>
         <main className="relative w-full h-full bg-[#FFF8E7] flex flex-col items-center justify-center p-16 border-2 border-gray-200">
@@ -14,7 +21,7 @@ export default function StaticLoadingPage() {
         {/* Next Button */}
         <div className="absolute top-10 right-10 z-10">
             <Button
-            //   onClick={handleNext}
+              onClick={handelNext}
               className="bg-black text-white px-16 py-8 rounded-xl hover:bg-gray-800 text-3xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
             >
               NEXT
