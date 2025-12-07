@@ -1,6 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils";
-import Link, { LinkProps } from "next/link";
+import Link from "next/link";
 import React, { useState, createContext, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
@@ -108,10 +108,10 @@ export const MobileSidebar = ({
   className,
   children,
   ...props
-}: React.ComponentProps<typeof motion.div>) => {
+}: React.ComponentProps<typeof motion.div> & { children?: React.ReactNode }) => {
   const { open, setOpen } = useSidebar();
   return (
-    <div
+    <motion.div
       className={cn(
         "h-10 px-4 py-4 flex flex-row md:hidden items-center justify-between bg-neutral-100 dark:bg-neutral-800 w-full"
       )}
@@ -148,19 +148,20 @@ export const MobileSidebar = ({
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </motion.div>
   );
 };
+
+type SidebarLinkProps = {
+  link: Links;
+  className?: string;
+} & Omit<React.ComponentProps<typeof Link>, "href" | "children">;
 
 export const SidebarLink = ({
   link,
   className,
-  ...props
-}: {
-  link: Links;
-  className?: string;
-  props?: LinkProps;
-}) => {
+  ...linkProps
+}: SidebarLinkProps) => {
   const { open } = useSidebar();
   const pathname = usePathname();
 
@@ -168,25 +169,18 @@ export const SidebarLink = ({
   const isActive = link.active === true;
 
   const isButton = !link.href || link.href === "#";
-  const Tag = isButton ? "div" : Link;
+  const combinedClassName = cn(
+    "flex items-center justify-start gap-4 group/sidebar py-3 px-4 w-full transition-all duration-200",
+    "rounded-xl cursor-pointer border-2",
+    isActive
+      ? "text-black  border border-black shadow-md"
+      : "border-transparent text-neutral-700 hover:bg-gray-200 hover:text-black hover:border-gray-300",
+    "active:scale-95",
+    className
+  );
 
-  return (
-    <Tag
-      {...(isButton ? {} : { href: link.href || "#" })}
-      className={cn(
-        "flex items-center justify-start gap-4 group/sidebar py-3 px-4 w-full transition-all duration-200",
-        "rounded-xl cursor-pointer border-2",
-
-        isActive
-          ?  "text-black  border border-black shadow-md"
-          : "border-transparent text-neutral-700 hover:bg-gray-200 hover:text-black hover:border-gray-300",
-
-        "active:scale-95",
-        className
-      )}
-      onClick={link.onClick}
-      {...props}
-    >
+  const content = (
+    <>
       {link.icon}
 
       <motion.span
@@ -198,6 +192,25 @@ export const SidebarLink = ({
       >
         {link.label}
       </motion.span>
-    </Tag>
+    </>
+  );
+
+  if (isButton) {
+    return (
+      <div className={combinedClassName} onClick={link.onClick}>
+        {content}
+      </div>
+    );
+  }
+
+  return (
+    <Link
+      href={link.href ?? "#"}
+      className={combinedClassName}
+      onClick={link.onClick}
+      {...linkProps}
+    >
+      {content}
+    </Link>
   );
 };
