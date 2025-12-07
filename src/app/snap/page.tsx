@@ -65,7 +65,7 @@ export default function SnapPage() {
             <div
                 className="relative w-full h-full"
                 style={{
-                    backgroundImage: "url('/assets/background1.jpg')",
+                    backgroundImage: "url('/assets/background.png')",
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                 }}

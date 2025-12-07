@@ -27,7 +27,7 @@ export default function SnapPage() {
          <div 
          className="relative w-full h-full"
          style={{
-         backgroundImage: "url('/assets/background1.jpg')",
+         backgroundImage: "url('/assets/background.png')",
          backgroundSize: "cover",
          backgroundPosition: "center",
         }}>
@@ -46,7 +46,7 @@ export default function SnapPage() {
                 <div className="absolute top-10 right-10 z-10">
                     <Button
                     onClick={handelNext}
-                    className="bg-black text-white px-16 py-8 rounded-xl hover:bg-gray-800 text-3xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
+                    className="bg-black text-white px-16 py-8 rounded-xl hover:bg-gray-800 text-3xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed "
                     >
                     NEXT
                     </Button>
@@ -55,7 +55,7 @@ export default function SnapPage() {
                 <div className="w-full grid grid-cols-2 justify-center gap-6">
 
                     {/* ฝั่งซ้าย */}
-                    <div className="bg-white h-full flex  justify-center shadow-lg">
+                    <div className="bg-white h-full flex  justify-center ">
                         <h1 className="text-4xl font-semibold mt-15"> Pick your best 4 memory </h1> 
                     </div>
 
