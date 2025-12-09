@@ -39,7 +39,7 @@ export default function PaymentPage() {
             </div>
 
             <Button 
-            className="bg-gradient-to-br from-blue-600 to-blue-700 text-white rounded-2xl hover:from-blue-500 hover:to-blue-600 text-2xl font-semibold w-80 h-80 flex flex-col items-center justify-center gap-2 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 border-2 border-blue-400"
+            className="bg-gradient-to-br from-blue-600 to-blue-700 text-white rounded-2xl text-2xl font-semibold w-80 h-80 flex flex-col items-center justify-center gap-2 shadow-xl hover:shadow-2xl  transition-all duration-300"
             onClick={handleNext}
             >
 
