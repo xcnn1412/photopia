@@ -137,12 +137,12 @@ export default function Page() {
         {/* Main Content Area */}
         <div className="p-10 w-full h-full bg-white dark:bg-neutral-900 rounded-tl-2xl border border-neutral-200 dark:border-neutral-700 overflow-hidden relative">
           
-          {/* Next Button - Top Right Corner */}
-          <div className="absolute top-10 right-10 z-10">
+          {/* Next Button - Bottom Right Corner */}
+          <div className="absolute bottom-24 right-10 z-10">
             <Button
               onClick={handleNext}
               disabled={!selectedFrameSrc}
-              className="bg-black text-white px-16 py-8 rounded-xl hover:bg-gray-800 text-3xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
+              className="bg-black text-white px-6 py-6 rounded-xl hover:bg-gray-800 text-xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed shadow-lg w-[268px]"
             >
               NEXT
             </Button>
